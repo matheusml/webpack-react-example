@@ -20,7 +20,7 @@ module.exports = {
   },
   output: {
     path: 'static',
-    filename: '[name].[hash].js',
+    filename: '[name].[chunkhash].js',
   },
   module: {
     loaders: [
