@@ -11,16 +11,17 @@ var CleanPlugin = new CleanWebpackPlugin(['static']);
 var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({ template: 'index.html' });
 var UglifyPlugin = new Webpack.optimize.UglifyJsPlugin({ compress: { warnings: false }});
 var DedupePlugin = new Webpack.optimize.DedupePlugin();
-var CommonChunksPlugin = new Webpack.optimize.CommonsChunkPlugin({ name: 'vendor' });
+var CommonChunksPlugin = new Webpack.optimize.CommonsChunkPlugin({ names: ['vendor', 'manifest'] });
 
 module.exports = {
   entry: {
-    app: './app.js',
     vendor: ['react', 'react-dom'],
+    app: './app.js',
   },
   output: {
     path: 'static',
     filename: '[name].[chunkhash].js',
+    chunkFilename: '[chunkhash].bundle.js',
   },
   module: {
     loaders: [
