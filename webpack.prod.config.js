@@ -1,11 +1,13 @@
 var Webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 var DefinePlugin = new Webpack.DefinePlugin({
   'process.env': {
     NODE_ENV: JSON.stringify('production'),
   },
 });
+var CleanPlugin = new CleanWebpackPlugin(['static']);
 var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({ template: 'index.html' });
 var UglifyPlugin = new Webpack.optimize.UglifyJsPlugin({ compress: { warnings: false }});
 var DedupePlugin = new Webpack.optimize.DedupePlugin();
@@ -17,6 +19,7 @@ module.exports = {
     vendor: ['react', 'react-dom'],
   },
   output: {
+    path: 'static',
     filename: '[name].[hash].js',
   },
   module: {
@@ -31,5 +34,5 @@ module.exports = {
       }
     ]
   },
-  plugins: [DefinePlugin, HTMLWebpackPluginConfig, UglifyPlugin, DedupePlugin, CommonChunksPlugin]
+  plugins: [CleanPlugin, DefinePlugin, HTMLWebpackPluginConfig, UglifyPlugin, DedupePlugin, CommonChunksPlugin]
 }
